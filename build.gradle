@@ -1,0 +1,58 @@
+group 'zapier'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'java'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+sourceSets {
+    test {
+        java {
+            srcDirs = ["src/test/java"]
+        }
+    }
+}
+
+dependencies {
+    compile group: 'junit', name: 'junit', version: '4.12'
+    compile group: 'org.seleniumhq.selenium', name: 'selenium-java', version: '3.+'
+    compile group: 'org.seleniumhq.selenium', name: 'selenium-chrome-driver', version: '3.4.0'
+    compile group: 'org.seleniumhq.selenium', name: 'selenium-firefox-driver', version: '3.4.0'
+    compile group: 'org.assertj', name: 'assertj-core', version: '3.8.0'
+}
+
+task chrome_local (dependsOn: clean, type: Test) {
+    description 'UI tests on chrome browser locally'
+    systemProperties['browser'] = 'chrome_local'
+}
+
+task firefox_local (dependsOn: clean, type: Test) {
+    description 'UI tests on chrome browser locally'
+    systemProperties['browser'] = 'firefox_local'
+}
+
+task chrome (dependsOn: clean, type: Test) {
+    description 'UI tests on chrome browser'
+    systemProperties['browser'] = 'chrome'
+}
+
+task firefox (dependsOn: clean, type: Test) {
+    description 'UI tests on firefox browser'
+    systemProperties['browser'] = 'firefox'
+}
+
+task startGrid(type:Exec) {
+    commandLine 'docker-compose', 'up', '-d'
+}
+
+task stopGrid(type:Exec) {
+    commandLine 'docker-compose', 'down'
+}
+
+task scaleUpGrid(type:Exec) {
+    commandLine 'docker-compose', 'scale', 'firefox=3', 'chrome=3'
+}
