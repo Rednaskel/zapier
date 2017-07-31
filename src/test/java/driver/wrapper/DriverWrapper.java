@@ -1,7 +1,8 @@
 package driver.wrapper;
 
-import org.apache.commons.io.FileUtils;
+import fixtures.ScreenshotHelper;
 import org.openqa.selenium.*;
+import org.openqa.selenium.Dimension;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
@@ -9,8 +10,6 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -76,29 +75,10 @@ public class DriverWrapper {
         return ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
     }
 
-    public void takeScreenshotOfElement(By locatorBy) throws IOException {
-        WebElement logoElem = driver.findElement(By.className("header__logo"));
-        Point location = logoElem.getLocation();
-        int height = logoElem.getSize().getHeight();
-        int width = logoElem.getSize().getWidth();
+    public File takeScreenshotOfElement(By locatorBy) throws IOException {
+        WebElement logoElem = driver.findElement(locatorBy);
         File screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
-        BufferedImage fullImg = ImageIO.read(screenshot);
-        String naturalWidth = logoElem.getAttribute("naturalWidth");
-        String naturalHeight = logoElem.getAttribute("naturalHeight");
-        BufferedImage logoImage = fullImg.getSubimage(location.getY(), location.getX(), width, height);
-        System.out.println("locationX: " + location.getX() );
-        System.out.println("locationY: " + location.getY());
-        System.out.println("width: " + width);
-        System.out.println("height: " + height);
-        System.out.println("fullImagewidth: " + fullImg.getWidth());
-        System.out.println("fullimageHeight: " + fullImg.getHeight());
-        System.out.println(naturalWidth);
-        System.out.println(naturalHeight);
-
-        ImageIO.write(logoImage, "png", screenshot);
-
-        File screenshotLocation = new File("./bum.png");
-        FileUtils.copyFile(screenshot, screenshotLocation);
-
+        return ScreenshotHelper.getElementPicture(logoElem, screenshot);
     }
+
 }

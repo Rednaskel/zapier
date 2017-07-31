@@ -21,24 +21,25 @@ public class LogoTest extends TestTemplate {
     @Test
     public void logoPresent() {
         assertThat(homePage.isLogoClassPresent()).as("Zapir Logo").isTrue();
+        assertThat(homePage.isLogoImagePresent()).as("Zapir Logo image").isTrue();
     }
 
-    @Test
+//    @Test
     public void integrateIconPresent() {
         assertThat(homePage.isIntegrateIconPresent()).as("Integrate Icon present").isTrue();
     }
 
-    @Test
+//    @Test
     public void automateIconPresent() {
         assertThat(homePage.isAutomateIconPresent()).as("Automate Icon present").isTrue();
     }
 
-    @Test
+//    @Test
     public void innovateIconPresent() {
         assertThat(homePage.isInnovateIconPresent()).as("Innovate Icon present").isTrue();
     }
 
-    @Test
+//    @Test
     public void testFail() {
         assertThat(homePage.isInnovateIconPresent()).as("Innovate Icon present").isFalse();
     }

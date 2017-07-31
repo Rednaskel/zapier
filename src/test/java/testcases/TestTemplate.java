@@ -1,8 +1,8 @@
 package testcases;
 
 import driver.wrapper.DriverWrapper;
-import fixtures.SuccessRule;
-import fixtures.FailRule;
+import fixtures.rules.SuccessRule;
+import fixtures.rules.FailRule;
 import org.junit.Rule;
 
 public class TestTemplate {
