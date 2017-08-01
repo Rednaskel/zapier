@@ -9,6 +9,8 @@ import org.openqa.selenium.WebElement;
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.awt.image.DataBuffer;
+import java.awt.image.Raster;
 import java.io.File;
 import java.io.IOException;
 
@@ -23,6 +25,25 @@ public class ScreenshotHelper {
         return screenshot;
     }
 
+    public static boolean compareScreenshots(File a, File b) throws IOException {
+
+        Raster imageDataA = ImageIO.read(a).getData();
+        Raster imageDataB = ImageIO.read(b).getData();
+        if (imageDataA.getHeight() != imageDataB.getHeight()
+                || imageDataA.getWidth() != imageDataB.getWidth()) {
+            System.err.println("Logo element dimensions are incorrect");
+            return false;
+        }
+        DataBuffer DataBufferA = imageDataA.getDataBuffer();
+        DataBuffer DataBufferB = imageDataB.getDataBuffer();
+        for(int i = 0; i< DataBufferA.getSize(); i++) {
+            if (DataBufferA.getElem(i) != DataBufferB.getElem(i)) {
+                System.err.println("Images are not the same");
+                return false;
+            }
+        }
+        return true;
+    }
 
     private static BufferedImage getElementImage(BufferedImage fullImg, Point location, Dimension size) {
         java.awt.Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
