@@ -5,10 +5,7 @@ making a screenshot of logo element and comparing with stored one.
 
 ## Prerequisites
 
-Java
-gradle
-Chrome browser
-Firefox browser
+Java, gradle, Chrome browser, Firefox browser
 
 Optional: Docker
 
