@@ -63,6 +63,18 @@ public class DriverWrapper {
         }
     }
 
+    public void type(By elementLocator, String text){
+        new WebDriverWait(driver, TIMEOUT)
+                .until(ExpectedConditions.elementToBeClickable(elementLocator))
+                .sendKeys(text);
+    }
+
+    public String getElementText(By xpathBy) {
+        return new WebDriverWait(driver, TIMEOUT)
+                .until(ExpectedConditions.visibilityOfElementLocated(xpathBy))
+                .getText();
+    }
+
     public void get(String url) {
         driver.get(url);
     }
