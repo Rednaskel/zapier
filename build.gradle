@@ -36,11 +36,19 @@ task firefox_local (dependsOn: clean, type: Test) {
 }
 
 task chrome (dependsOn: clean, type: Test) {
+    useJUnit {
+        maxParallelForks = System.hasProperty("threads") ?
+                System.getProperty("threads").toInteger() : 2
+    }
     description 'UI tests on chrome browser'
     systemProperties['browser'] = 'chrome'
 }
 
 task firefox (dependsOn: clean, type: Test) {
+    useJUnit {
+        maxParallelForks = System.hasProperty("threads") ?
+                System.getProperty("threads").toInteger() : 2
+    }
     description 'UI tests on firefox browser'
     systemProperties['browser'] = 'firefox'
 }
