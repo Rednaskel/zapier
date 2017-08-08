@@ -28,7 +28,7 @@ public class DriverWrapper {
         }
         browserName = browserName.toLowerCase();
 
-        DesiredCapabilities capability = null;
+        DesiredCapabilities capability;
         switch (browserName) {
             case "chrome_local":
                 System.setProperty("webdriver.chrome.driver", CHROME_DRIVER_PATH);

@@ -6,9 +6,6 @@ import driver.wrapper.DriverWrapper;
 import fixtures.ScreenshotHelper;
 import org.openqa.selenium.By;
 
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
-import java.awt.image.DataBuffer;
 import java.io.File;
 import java.io.IOException;
 
